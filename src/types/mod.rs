@@ -1,3 +1,5 @@
+use std::io::Write;
+
 use diesel::{
     backend::Backend,
     deserialize::{self, FromSql, FromSqlRow},
@@ -13,8 +15,8 @@ use diesel::{
 pub struct UUID(pub uuid::Uuid);
 
 impl From<UUID> for uuid::Uuid {
-    fn from(s: UUID) -> Self {
-        s.0
+    fn from(value: UUID) -> Self {
+        value.0
     }
 }
 
@@ -26,8 +28,7 @@ impl Into<UUID> for uuid::Uuid {
 
 impl ToSql<Binary, Mysql> for UUID {
     fn to_sql<'b>(&'b self, out: &mut Output<'b, '_, Mysql>) -> serialize::Result {
-        let by = *self.0.as_bytes();
-        std::io::Write::write_all(out, by.as_slice())?;
+        Write::write_all(out, self.0.as_bytes().as_slice())?;
 
         Ok(IsNull::No)
     }
