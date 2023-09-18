@@ -8,7 +8,7 @@ use diesel::{
 };
 
 // Generic uuid conversion
-#[derive(Debug, Clone, PartialEq, FromSqlRow, AsExpression, Eq)]
+#[derive(Debug, Clone, AsExpression, FromSqlRow)]
 #[diesel(sql_type = sql_types::Binary)]
 pub struct UUID(pub uuid::Uuid);
 
