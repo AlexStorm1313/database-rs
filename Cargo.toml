@@ -1,0 +1,19 @@
+[package]
+name = "database"
+description = "A all in one database package template that includes a connection pool and custom SQL types"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+authors = ["Alex"]
+
+[lib]
+name = "database"
+path = "src/lib.rs"
+
+[dependencies]
+tracing = { version = "*" }
+r2d2 = { version = "*" }
+diesel = { version = "*", features = ["mysql", "r2d2"] }
+diesel_migrations = { version = "*" }
+uuid = { version = "*", features = ["v4"] }
